@@ -1,7 +1,8 @@
 const TableMap = {
   User: 'user',
   Whisper: 'whisper',
-  UserWhisperSeenMap: 'userWhisperSeenMap'
+  UserWhisperSeenMap: 'userWhisperSeenMap',
+  Reply: 'reply'
 }
 
 module.exports = {

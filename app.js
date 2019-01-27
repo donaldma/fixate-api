@@ -11,6 +11,7 @@ const bearerToken = require('express-bearer-token')
 const knexLogger = require('knex-logger')
 const db = require('./database/db')
 const apiV1 = require('./routes/apiV1')
+const apiV2 = require('./routes/apiV2')
 const Helpers = require('./utils/Helpers')
 
 /**
@@ -41,6 +42,7 @@ app.use(function(req, res, next) {
 })
 
 app.use('/api/v1', apiV1)
+app.use('/api/v2', apiV2)
 
 app.use(function(err, req, res, next) {
   console.error(err)

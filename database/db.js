@@ -52,6 +52,16 @@ const postUser = (email, password) => {
     .insert({ email, password })
 }
 
+const getAllWhispers = () => {
+  return knex(TableMap.Whisper).select('*')
+}
+
+const getWhisperReply = (whisperId) => {
+  return knex(TableMap.Reply)
+    .where({ whisperId })
+    .first()
+}
+
 module.exports = {
   knex,
   getUserWhisperSeen,
@@ -60,5 +70,7 @@ module.exports = {
   postWhisper,
   getUserByEmail,
   getUserById,
-  postUser
+  postUser,
+  getAllWhispers,
+  getWhisperReply
 }

@@ -23,4 +23,13 @@ const postWhisper = async (userId, content) => {
   return whisper[0]
 }
 
-module.exports = { getRandomWhisper, postWhisper }
+const getRandomWhisperReply = async (userId) => {
+  const randomWhisper = await getRandomWhisper(userId)
+  const whisperReply = await db.getWhisperReply(randomWhisper.id)
+  return {
+    whisper: randomWhisper,
+    reply: whisperReply
+  }
+}
+
+module.exports = { getRandomWhisper, postWhisper, getRandomWhisperReply }
