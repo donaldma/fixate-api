@@ -10,7 +10,7 @@ const cron = require('node-cron')
 const bearerToken = require('express-bearer-token')
 const knexLogger = require('knex-logger')
 const db = require('./database/db')
-const apiRoutes = require('./routes/api')
+const apiV1 = require('./routes/apiV1')
 const Helpers = require('./utils/Helpers')
 
 /**
@@ -40,7 +40,7 @@ app.use(function(req, res, next) {
   next()
 })
 
-app.use('/api', apiRoutes)
+app.use('/api/v1', apiV1)
 
 app.use(function(err, req, res, next) {
   console.error(err)

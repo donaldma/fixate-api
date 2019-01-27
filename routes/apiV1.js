@@ -5,7 +5,6 @@ const router = express.Router()
 const WhisperHelper = require('../utils/WhisperHelper')
 const UserHelper = require('../utils/UserHelper')
 const AuthHelper = require('../utils/AuthHelper')
-const db = require('../database/db')
 
 router.get('/ping', async (req, res, next) => {
   try {
