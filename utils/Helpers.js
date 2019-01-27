@@ -11,7 +11,10 @@ const handleServerError = (res, err) => {
 
 const cleanString = (string) => string.trim().toLowerCase()
 
+const randomFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)]
+
 module.exports = {
   handleServerError,
-  cleanString
+  cleanString,
+  randomFromArray
 }

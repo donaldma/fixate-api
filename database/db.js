@@ -8,10 +8,14 @@ const getUserWhisperSeen = (userId) => {
   return knex(TableMap.UserWhisperSeenMap).where({ userId })
 }
 
-const getUnseenWhispers = (userId, seenWhisperIds) => {
+const getUnseenWhispers = (userId, whisperIds) => {
   return knex(TableMap.Whisper)
     .whereNot({ userId })
-    .whereNotIn('id', seenWhisperIds)
+    .whereNotIn('id', whisperIds)
+}
+
+const getAllOtherWhispers = (userId) => {
+  return knex(TableMap.Whisper).whereNot({ userId })
 }
 
 const addUserWhisperSeen = (userId, whisperId) => {
@@ -56,10 +60,35 @@ const getAllWhispers = () => {
   return knex(TableMap.Whisper).select('*')
 }
 
-const getWhisperReply = (whisperId) => {
-  return knex(TableMap.Reply)
-    .where({ whisperId })
+const getWhisperById = (id) => {
+  return knex(TableMap.Whisper)
+    .where({ id })
     .first()
+}
+
+const getWhisperReplies = (whisperIds) => {
+  return knex(TableMap.Reply)
+    .whereIn('whisperId', whisperIds)
+    .whereNotNull('content')
+}
+
+const postReply = (whisperId, content) => {
+  return knex(TableMap.Reply)
+    .returning('*')
+    .insert({ whisperId, content })
+}
+
+const getReplies = (whisperIds) => {
+  return knex(TableMap.Reply)
+    .whereNotIn('whisperId', whisperIds)
+    .whereNull('content')
+}
+
+const updateReply = (userId, replyId, content) => {
+  return knex(TableMap.Reply)
+    .returning('*')
+    .where({ id: replyId })
+    .update({ userId, content })
 }
 
 module.exports = {
@@ -72,5 +101,10 @@ module.exports = {
   getUserById,
   postUser,
   getAllWhispers,
-  getWhisperReply
+  getWhisperById,
+  getWhisperReplies,
+  postReply,
+  getReplies,
+  getAllOtherWhispers,
+  updateReply
 }
