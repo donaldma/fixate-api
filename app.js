@@ -20,7 +20,7 @@ const Helpers = require('./utils/Helpers')
  */
 cron.schedule('*/15 * * * *', () => {
   console.log('Ping App')
-  axios.get('https://fixate.herokuapp.com/api/ping')
+  axios.get('https://fixate.herokuapp.com/api/v1/ping')
 })
 /**
  * END CRON JOBS
