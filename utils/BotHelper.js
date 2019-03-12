@@ -16,6 +16,7 @@ const checkTickets = async (movieId, locationId, date) => {
   const locationName = parseName(locationId)
   const url = `https://www.cineplex.com/Showtimes/${movieId}/${locationId}?Date=${date}`
   const numbersToNotify = ['7788653098', '7789529922']
+  let message
   await request(url, (error, response, html) => {
     if (error) {
       throw createError(500, 'Error in cheerio request connection')
@@ -32,10 +33,12 @@ const checkTickets = async (movieId, locationId, date) => {
 
     if (notAvailableError.length === 1) {
       console.log('not available')
+      message = 'not available'
       return
     }
 
     console.log('available')
+    message = 'available'
     numbersToNotify.forEach((x) => {
       client.messages.create({
         body: `Movie tickets for ${movieName} at ${locationName} on ${date} is now available. ${url}`,
@@ -44,6 +47,8 @@ const checkTickets = async (movieId, locationId, date) => {
       })
     })
   })
+
+  return message
 }
 
 module.exports = {
