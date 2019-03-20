@@ -18,7 +18,7 @@ const checkTickets = async (movieId, locationId, date) => {
   const numbersToNotify = ['7788653098', '7789529922']
   let message
   await request(url, (error, response, html) => {
-    if (error) {
+    if (error || !html) {
       throw createError(500, 'Error in cheerio request connection')
     }
 
